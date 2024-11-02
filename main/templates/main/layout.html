@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+
+<body>
+    <aside>
+        <img src="{% static 'main/img/elephant.jpg' %}" alt="logo" class="logo-img">
+        <span class="logo">Logo</span>
+        <h3>Навигация</h3>
+        <ul>
+            <a href="{% url 'home'%}">
+                <li><i class="fas fa-igloo"></i> Главная</li>
+            </a>
+            <a href="{% url 'about'%}">
+                <li><i class="fas fa-duotone fa-paper-plane"></i> О нас</li>
+            </a>
+            <a href="{% url 'contact'%}">
+                <li><i class="fas fa-solid fa-id-badge"></i> Контакты</li>
+            </a>
+            <a href="{% url 'news_home'%}">
+                <li><i class="fas fa-ad"></i> Новости</li>
+            </a>
+            <a href="{% url 'create'%}">
+                <li><button class="btn btn-info"><i class="fas fa-plus-circle"></i> Добавить новость</button></li>
+            </a>
+
+            <!-- Доступно только для авторизованных пользователей -->
+            {% if user.is_authenticated %}
+            <a href="{% url 'admin'%}">
+                <li><i class="fas fa-solid fa-id-badge"></i> admin</li>
+            </a>
+            {{user.username}}
+            <a href="{% url 'logout' %}">
+                <li><i class="fas fa-sign-out-alt"></i> Выйти</li>
+            </a>
+
+            {% endif %}
+        </ul>
+    </aside>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+    
+</html>
